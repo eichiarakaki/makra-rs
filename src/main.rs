@@ -6,8 +6,6 @@
 // #![allow(unused_mut)]
 // #![allow(unused_variables)]
 
-use std::vec;
-
 
 struct Input {
     data: Vec<String>,
@@ -128,17 +126,12 @@ MathCalcs!(isize);
 
 
 
-
 fn test_case() {
     let mut rin = Input::new();
-    let mut repeat: u128 = 0;
-    rin = rin >> &mut repeat;
+    let mut times: u32 = 0;
+    rin = rin >> &mut times;
     
-    let mut s: u32 = 0; // Data type you need
-    for _  in 0..repeat {
-        rin = rin >> &mut s;
-    }
-    
+    for _  in 0..times {}
     
 }
 
