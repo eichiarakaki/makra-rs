@@ -6,24 +6,23 @@
 // #![allow(unused_mut)]
 // #![allow(unused_variables)]
 
-
 struct Input {
     data: Vec<String>,
 }
 
 impl Input {
     pub fn new() -> Input {
-        Input{data: Vec::new()}
+        Input { data: Vec::new() }
     }
 
     fn read(&mut self) {
         let mut line: String = String::new();
         std::io::stdin().read_line(&mut line).unwrap();
         self.data = line
-                        .split_whitespace()
-                        .rev()
-                        .map(|s| s.parse::<String>().unwrap())
-                        .collect::<Vec<_>>();
+            .split_whitespace()
+            .rev()
+            .map(|s| s.parse::<String>().unwrap())
+            .collect::<Vec<_>>();
     }
 
     pub fn get<T: core::str::FromStr>(&mut self) -> T {
@@ -43,27 +42,24 @@ impl<T: core::str::FromStr> std::ops::Shr<&mut T> for Input {
     }
 }
 
-
 macro_rules! ift {
     ($test:expr => $true_expr:expr; $false_expr:expr) => {
         if $test {
             $true_expr
-        }
-        else {
+        } else {
             $false_expr
         }
-    }
+    };
 }
-
 
 trait SingleNMath<T> {
     fn is_prime(&self) -> bool;
+    fn factorial(self) -> T;
 }
 
 macro_rules! SingleNMath {
     ($type:ty) => {
         impl SingleNMath<$type> for $type {
-            
             fn is_prime(&self) -> bool {
                 if self <= &1 {
                     return false;
@@ -75,8 +71,12 @@ macro_rules! SingleNMath {
                 }
                 true
             }
+
+            fn factorial(self) -> $type {
+                (1..=self).into_iter().fold(1 as $type, |acc, n| acc * n)
+            }
         }
-    }
+    };
 }
 // unsigned integers
 SingleNMath!(u8);
@@ -86,8 +86,6 @@ SingleNMath!(u64);
 SingleNMath!(u128);
 SingleNMath!(usize);
 
-
-
 trait MathCalc<T> {
     fn median(&mut self) -> T;
     fn average(&self) -> f32;
@@ -96,7 +94,6 @@ trait MathCalc<T> {
 macro_rules! MathCalcs {
     ($type:ty) => {
         impl MathCalc<$type> for Vec<$type> {
-            
             fn median(&mut self) -> $type {
                 self.sort();
                 let mid = self.len() / 2;
@@ -107,7 +104,7 @@ macro_rules! MathCalcs {
                 self.iter().sum::<$type>() as f32 / self.len() as f32
             }
         }
-    }
+    };
 }
 // unsigned integers
 MathCalcs!(u8);
@@ -124,27 +121,18 @@ MathCalcs!(i64);
 MathCalcs!(i128);
 MathCalcs!(isize);
 
-
-
 fn test_case() {
     let mut rin = Input::new();
-    let mut times: u32 = 0;
-    rin = rin >> &mut times;
-    
-    for _  in 0..times {}
-    
+    let mut times = 0;
+    // rin = rin >> &mut times;
+
+    // for _ in 0..times {}
 }
-
-
-
-
-
 
 fn main() {
     // let mut rin = Input::new();
     // let mut out: u32 = 0;
 
-    
     // rin = rin >> &mut out;
     // for i in 1..out + 1 {
     //     print!("Case #{i}: ");
