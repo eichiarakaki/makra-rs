@@ -53,23 +53,31 @@ macro_rules! ift {
 }
 
 trait SingleNMath<T> {
-    fn is_prime(&self) -> bool;
+    fn is_prime(self) -> bool;
     fn factorial(self) -> T;
 }
 
 macro_rules! SingleNMath {
     ($type:ty) => {
         impl SingleNMath<$type> for $type {
-            fn is_prime(&self) -> bool {
-                if self <= &1 {
-                    return false;
-                }
-                for i in 2..*self {
-                    if self % i == 0 {
-                        return false;
-                    }
-                }
-                true
+            fn is_prime(self) -> bool {
+                // For better performance this function works with not too big numbers
+                let prime: bool = if !(self % 2 == 0)
+                    && !(self % 3 == 0)
+                    && !(self % 5 == 0)
+                    && !(self % 7 == 0)
+                    && !(self < 2)
+                    || (self == 5)
+                    || (self == 7)
+                    || (self == 2)
+                    || (self == 3)
+                {
+                    true
+                } else {
+                    false
+                };
+
+                prime
             }
 
             fn factorial(self) -> $type {
