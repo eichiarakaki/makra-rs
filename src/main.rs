@@ -63,7 +63,7 @@ macro_rules! SingleNMath {
             // O(1)
             fn is_prime(self) -> bool {
                 let last = (self as f64).sqrt() as i64 + 1;
-                x > 1 && (2..last).all(|d| x % d != 0)
+                self as $type > 1 && (2..last).all(|d| self % d as $type != 0)
             }
             // O(nk)
             fn factorial(self) -> $type {
@@ -120,7 +120,6 @@ fn test_case() {
     let mut rin = Input::new();
     let mut times = 0;
     // rin = rin >> &mut times;
-
     // for _ in 0..times {}
 }
 
